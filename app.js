@@ -47,10 +47,11 @@ function mainFuntion() {
       const win = document.querySelector(".win");
       const loss = document.querySelector(".loss");
       if (Number(calGenerateBox.value) === Number(pinGenerateBox.value)) {
-         win.classList.toggle("hidden");
-         loss.classList.toggle("hidden");
+         win.classList.remove("hidden");
+         loss.classList.add("hidden");
       } else {
-         loss.classList.toggle("hidden");
+         loss.classList.remove("hidden");
+         win.classList.add("hidden");
       }
    });
 }
