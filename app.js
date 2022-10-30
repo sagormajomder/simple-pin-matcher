@@ -5,6 +5,11 @@ const randGenerator = function (min, max) {
    return Math.trunc(Math.random() * (max - min + 1) + min);
 };
 
+const resetStatusValue = function () {
+   statusValue = true;
+   i = 0;
+};
+
 // Number Pad works
 // if number has 4 digit then we can't enter any new value
 const calGenerateBox = document.getElementById("cal-value");
@@ -34,11 +39,20 @@ function mainFuntion() {
 
    // clear and back btn button works
    const calBtnBack = document.getElementById("back");
+
+   calBtnBack.addEventListener("click", function () {
+      calGenerateBox.value = calGenerateBox.value.slice(0, -1);
+      i--;
+      statusValue = true;
+      if (calGenerateBox.value === "") {
+         resetStatusValue();
+      }
+   });
+
    const calBtnClear = document.getElementById("clear");
    calBtnClear.addEventListener("click", function () {
       calGenerateBox.value = "";
-      statusValue = true;
-      i = 0;
+      resetStatusValue();
    });
 
    // Checking pin and numberpad value
