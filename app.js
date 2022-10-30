@@ -17,11 +17,10 @@ const calBtnHandler = function (number) {
 
       calGenerateBox.value += calGenerateValue;
       i++;
-      if (i === 4) {
+      if (i >= 4) {
          statusValue = false;
       }
    }
-   return;
 };
 
 function mainFuntion() {
@@ -39,19 +38,35 @@ function mainFuntion() {
    calBtnClear.addEventListener("click", function () {
       calGenerateBox.value = "";
       statusValue = true;
+      i = 0;
    });
 
    // Checking pin and numberpad value
    const submitBtn = document.querySelector(".submit-btn");
+   const tryEl = document.querySelector(".action-left");
+   let tryStatus = 3;
+
    submitBtn.addEventListener("click", function () {
       const win = document.querySelector(".win");
       const loss = document.querySelector(".loss");
-      if (Number(calGenerateBox.value) === Number(pinGenerateBox.value)) {
-         win.classList.remove("hidden");
-         loss.classList.add("hidden");
-      } else {
-         loss.classList.remove("hidden");
-         win.classList.add("hidden");
+      if (tryStatus) {
+         tryStatus--;
+         if (Number(calGenerateBox.value) === 0) {
+            win.classList.add("hidden");
+            loss.classList.add("hidden");
+            tryStatus > 3 ? tryStatus++ : (tryStatus = 3);
+         } else if (
+            Number(calGenerateBox.value) === Number(pinGenerateBox.value)
+         ) {
+            win.classList.remove("hidden");
+            loss.classList.add("hidden");
+         } else {
+            loss.classList.remove("hidden");
+            win.classList.add("hidden");
+            tryEl.innerText = `${tryStatus} try left`;
+         }
       }
+      tryStatus || submitBtn.setAttribute("disable", "");
+      tryStatus || submitBtn.classList.add("disabled");
    });
 }

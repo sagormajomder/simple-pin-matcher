@@ -108,3 +108,6 @@ input[type="text"]:focus {
 .hidden {
    display: none;
 }
+.disabled {
+   background-color: #425062;
+}
